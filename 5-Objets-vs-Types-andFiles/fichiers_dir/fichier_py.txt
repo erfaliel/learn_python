@@ -1,1 +1,1 @@
-C'est le contenu du fichier. Spectaculaire non ?
+C'est le contenu du fichier. Spectaculaire non ?/nJe rajoute cette ligne à mon fichier via python. /nJe rajoute cette ligne à mon fichier via python. /nJe rajoute cette ligne à mon fichier via python. /nJe rajoute cette ligne à mon fichier via python. /nJe rajoute cette ligne à mon fichier via python. /n
