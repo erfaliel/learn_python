@@ -49,4 +49,26 @@ os.environ
 os.uname()
 # os.chown(fd, uid, gid)
 
+# Enregistrer des objets dans des fichiers
+# nous allons utiliser le module pickle.
+# on peut enregistrer un objet par fichier ou les mettre les uns à la suite des autres dans un seul.
+import pickle
+score = {
+    'joueur 1' :  5,
+    'joueur 2' : 35,
+    'joueur 3' : 20,
+    'joueur 4' :  2
+}
+# Enregistrement de l'objet:
+with open('donnees', 'wb') as fichier_contenant_objet:
+    mon_pickler = pickle.Pickler(fichier_contenant_objet)
+    mon_pickler.dump(score)
+
+# Récupérer l'objet dans le fichier
+# Unpickler
+with open('donnees', 'rb') as fichier:
+    mon_depickler = pickle.Unpickler(fichier)
+    score_recupere = mon_depickler.load() # cela renvoit le premier objet du fichier.
+    # Si nécessaire appeler autant de fois que d'objet.
+print("Le score récupéré est : {}".format(score_recupere))
 
