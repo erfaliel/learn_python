@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+# -*-coding:utf-8 -*
+print('Hello World.')
+
+# pour exécuter ce progamme: ././fichier_de_base_pour_python_linux
+# Il faut par contre que les droits x (exécutable) soient bien attribués.
