@@ -1,4 +1,5 @@
 import random
+import re
 
 def generate_word_to_find(game_list):
   """Take a list and return a tuple.
@@ -10,6 +11,12 @@ def generate_word_to_find(game_list):
   word_to_find_list = [char for char in word_to_find_char]
   return (word_to_find_list, number_word_to_find_int)
 
+def getchar():
+  """ return a char entered by the user if it is one char only. """
+  char = ''
+  while re.match(r"^[a-zA-Z]$", char) is None :
+    char = input("Entrez un caractère et un seul : ")
+  return char
 
 def check_char(searched_word_list, word_to_find_list, user_char):
   """Take two list and a char and return the modified first list.
