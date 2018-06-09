@@ -74,5 +74,5 @@ while continuer_partie: # Tant qu'on doit continuer la partie
             print("Vous quittez le casino avec vos gains.")
             continuer_partie = False
 
-# On met en pause le système (Windows)
+# On met en pause le système (win_booldows)
 os.system("pause")
