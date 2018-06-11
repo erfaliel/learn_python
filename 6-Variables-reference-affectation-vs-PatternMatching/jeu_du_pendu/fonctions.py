@@ -1,5 +1,6 @@
 import random
 import re
+import pickle
 
 def generate_word_to_find(game_list):
   """Take a list and return a tuple.
@@ -38,6 +39,23 @@ def word_user_init(number_word_to_find_int):
     searched_word_list.append('*')
     i += 1
   return searched_word_list
+# Score management
+scores_dict = {}
+def get_scores():
+  try: # Check is file exist
+    with open('scores', 'rb') as scores_file:
+      score_depickler = pickle.Unpickler(scores_file)
+      scores_dict = score_depickler.load()
+   
+  except FileNotFoundError:
+    save_scores({'Player1': 0})
+  else:
+    print(scores_dict)
+
+def save_scores(scores_dict) :
+  with open('scores', 'wb') as scores_file:
+    scores_pickler = pickle.Pickler(scores_file)
+    scores_pickler.dump(scores_dict)
 
 # Unit tests 
 if __name__ == "__main__" :

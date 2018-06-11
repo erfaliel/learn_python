@@ -46,7 +46,7 @@ with open("fichier_py.txt", "r") as mon_fichier:
 # le module os a plein de méthode pour travailler sur le fichiers.
 # variable de l'environnement
 os.environ
-os.uname()
+os.name()
 # os.chown(fd, uid, gid)
 
 # Enregistrer des objets dans des fichiers
