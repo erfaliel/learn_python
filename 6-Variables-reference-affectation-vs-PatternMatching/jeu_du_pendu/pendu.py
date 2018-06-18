@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*-coding:utf-8 -*
+
 import donnees
 from fonctions import *
 
@@ -30,7 +33,7 @@ while tries_int <= donnees.count and win_bool is False :
 
 if win_bool :
   print("Gagné !")
-  score_int = donnees.count - tries_int
+  score_int = donnees.count - tries_int + 1
   print("Votre score pour cette partie est : {}.".format(score_int))
   # Calculate new score for the player
   (player_name_string, score_player_int) = calculate_score_player((player_name_string, score_player_int), score_int)
