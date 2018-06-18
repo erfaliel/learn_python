@@ -10,7 +10,7 @@ word_to_find_list, nb = generate_word_to_find(donnees.game_list)
 # Generate word to find with *
 searched_word_list = word_user_init(nb)
 print("voici un mot en {} lettres à trouver :".format(nb))
-print(searched_word_list)
+print('_'.join(searched_word_list))
 # Init games
 tries_int = 1
 win_bool = False
@@ -28,7 +28,7 @@ while tries_int <= donnees.count and win_bool is False :
   if (word_to_find_list == searched_word_list) :
     print("Le mot est bien {}, en {} tetatives".format(searched_word_list, tries_int))
     win_bool = True
-  print("La liste est: {}, tentatives = {}".format(searched_word_list, tries_int))
+  print("Le mot est: {}, tentatives = {}".format('_'.join(searched_word_list), tries_int))
   tries_int += 1
 
 if win_bool :

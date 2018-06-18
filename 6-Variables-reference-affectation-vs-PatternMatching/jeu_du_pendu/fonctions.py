@@ -15,7 +15,7 @@ def generate_word_to_find(game_list):
 def getchar():
   """ return a char entered by the user if it is one char only. """
   char = ''
-  while re.match(r"^[a-zA-Z]$", char) is None :
+  while re.match(r"^[a-zA-Z]$", char) is None : # other: if len(char)>1 or not char.isalpha():
     char = input("Entrez un caractère et un seul : ")
   return char
 
