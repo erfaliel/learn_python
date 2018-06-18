@@ -51,11 +51,22 @@ def get_scores():
     save_scores({'Player1': 0})
   else:
     print(scores_dict)
+    # return scores_dict
 
 def save_scores(scores_dict) :
   with open('scores', 'wb') as scores_file:
     scores_pickler = pickle.Pickler(scores_file)
     scores_pickler.dump(scores_dict)
+
+def get_score_player(scores_dict, player_name_string):
+  if player_name_string not in scores_dict:
+    scores_dict[player_name_string] = 0
+  # return score_player_tuple
+  return (player_name_string, scores_dict[player_name_string])
+
+def calculate_score_player(score_player_tuple, score_int):
+  player_name_string, score_player_int = score_player_tuple
+  return (player_name_string, score_player_int + score_int)
 
 # Unit tests 
 if __name__ == "__main__" :
@@ -66,3 +77,11 @@ if __name__ == "__main__" :
   searched_word_list = word_user_init(number_word_to_find_int)
   print(searched_word_list)
   print(check_char(searched_word_list, word_to_find_list, 'o'))
+  scores_dict = {
+    "titi": 3,
+    "tata": 4
+  }
+  print(get_score_player(scores_dict, "titi"))
+  print(get_score_player(scores_dict, "toto"))
+  print(calculate_score_player(("Toto", 0), 2))
+  

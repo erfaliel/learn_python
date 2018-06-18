@@ -53,7 +53,7 @@ os.name()
 # nous allons utiliser le module pickle.
 # on peut enregistrer un objet par fichier ou les mettre les uns à la suite des autres dans un seul.
 import pickle
-score = {
+scores = {
     'joueur 1' :  5,
     'joueur 2' : 35,
     'joueur 3' : 20,
@@ -62,7 +62,7 @@ score = {
 # Enregistrement de l'objet:
 with open('donnees', 'wb') as fichier_contenant_objet:
     mon_pickler = pickle.Pickler(fichier_contenant_objet)
-    mon_pickler.dump(score)
+    mon_pickler.dump(scores)
 
 # Récupérer l'objet dans le fichier
 # Unpickler
