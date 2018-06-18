@@ -16,8 +16,9 @@ scores_dict = get_scores() #get existing scores in file
 player_name_string = input("Veuillez saisir votre nom : ")
 # check player or create player score
 player_name_string, score_player_int = get_score_player(scores_dict, player_name_string)
-print("Bonjour {}, ton score actuel est de {}.".format(player_name_string, score_player_int))
+print("Bonjour {}, votre score actuel est de {}.".format(player_name_string, score_player_int))
 
+# Loop game for each tries.
 while tries_int <= donnees.count and win_bool is False :
   user_char = getchar()
   searched_word_list = check_char(searched_word_list, word_to_find_list, user_char)
@@ -38,5 +39,5 @@ if win_bool :
   scores_dict[player_name_string] = score_player_int
   save_scores(scores_dict)
 else:
-  print("perdu ! Le mot à trouver était : {}".format(word_to_find_list))
-  print("Votre score est inchangé, il est de : {}".format(''.join(score_player_int)))
+  print("perdu ! Le mot à trouver était : {}".format(''.join(word_to_find_list)))
+  print("Votre score reste inchangé : {}".format(score_player_int))

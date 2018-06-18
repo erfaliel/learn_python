@@ -42,6 +42,8 @@ def word_user_init(number_word_to_find_int):
 # Score management
 scores_dict = {}
 def get_scores():
+  """return a dict.
+  read the binary dict file, creat it, if it does not exist. """
   try: # Check is file exist
     with open('scores', 'rb') as scores_file:
       score_depickler = pickle.Unpickler(scores_file)
@@ -54,17 +56,24 @@ def get_scores():
     return scores_dict
 
 def save_scores(scores_dict) :
+  """Take a dict, return nothing.
+  record a dict in a binary file. """
   with open('scores', 'wb') as scores_file:
     scores_pickler = pickle.Pickler(scores_file)
     scores_pickler.dump(scores_dict)
 
 def get_score_player(scores_dict, player_name_string):
+  """Take a dict and string, return a tuple: (string, int)
+  get the tuple player name, player score in the scores_dict. """
   if player_name_string not in scores_dict:
     scores_dict[player_name_string] = 0
   # return score_player_tuple
   return (player_name_string, scores_dict[player_name_string])
 
 def calculate_score_player(score_player_tuple, score_int):
+  """Take a tuple and int, return a tuple.
+  Rule for calculate the new score for the player.
+  Rule is last score + new score. """
   player_name_string, score_player_int = score_player_tuple
   return (player_name_string, score_player_int + score_int)
 
