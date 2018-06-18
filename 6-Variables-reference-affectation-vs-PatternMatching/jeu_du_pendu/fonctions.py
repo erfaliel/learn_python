@@ -49,9 +49,9 @@ def get_scores():
    
   except FileNotFoundError:
     save_scores({'Player1': 0})
+    return scores_dict
   else:
-    print(scores_dict)
-    # return scores_dict
+    return scores_dict
 
 def save_scores(scores_dict) :
   with open('scores', 'wb') as scores_file:

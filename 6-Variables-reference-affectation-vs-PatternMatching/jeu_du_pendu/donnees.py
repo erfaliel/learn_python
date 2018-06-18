@@ -1,5 +1,5 @@
 # Paramètre du nombre de coup avant que je joeur ne perde
-count = 8
+count = 12
 
 # Liste des mots à trouver, proposés par le jeu.
 game_list = [
