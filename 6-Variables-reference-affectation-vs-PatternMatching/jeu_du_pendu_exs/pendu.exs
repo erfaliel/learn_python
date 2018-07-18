@@ -5,7 +5,7 @@
 count = 12
 
   # Liste des mots à trouver, proposés par le jeu.
-game_list = [
+game_words_list = [
   "nez",
   "jet",
   "jeu",
@@ -34,21 +34,26 @@ game_list = [
 IO.inspect game_list
 IO.inspect count
 defmodule Pendu do
-  def generate_word_list_to_find(game_list) do
-    game_list = 
-    game_list
-    |> Enum.random
-    |> String.codepoints
-
-    game_list_count = Enum.count(game_list)
+  def generate_word_to_find(game_words_list) do
+    game_word_string = Enum.random(game_words_list)
+    game_word_count_int = Enum.count(game_list)
     
-    {game_list, game_list_count}
+    {game_word_string, game_word_count_int}
   end
 
-  def word_user_init(game_list_count) do
-    1..game_list_count
-    |> Enum.map(fn n -> '*' end)
+  def found_letters(found_letters_list, game_word_string) do
+    String.codepoints game_word_string
+    |> Enum.map(fn n -> check_char(found_letters_list, n) end)
+    |> to_string
   end
+
+  def check_char(found_letters_list, nchar) do
+    found_letters_list
+    |> Enum.map(&(check_one_char(&1, nchar)))
+  end
+
+  def check_one_char(n, nchar) when n == nchar, do: nchar
+  def check_one_char(n, nchar), do: "*"
 
   def get_char do
     user_char = IO.gets("Veuillez entrer un caractère et un seul : ")
@@ -64,8 +69,8 @@ defmodule Pendu do
   def check_char(searched_word_list, word_to_find_list, user_char) do
     word_to_find_list
     |> Enum.map(fn nchar -> check_one_char(nchar, user_char) end)
+    |> Enum.map(fn nchar ->)
 
   end
-  defp check_one_char(nchar, user_char) when nchar == user_char, do: user_char
-  defp check_one_char(nchar, user_char), do: '*'
+
 end
