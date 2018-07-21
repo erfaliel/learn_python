@@ -32,28 +32,55 @@ game_words_list = [
   "abusif",
   ]
 IO.inspect game_list
+
 IO.inspect count
 defmodule Pendu do
-  def generate_word_to_find(game_words_list) do
-    game_word_string = Enum.random(game_words_list)
-    game_word_count_int = Enum.count(game_list)
-    
-    {game_word_string, game_word_count_int}
+  
+  game_word_string = Enum.random(game_words_list)
+  found_letters_list = []
+  word_research_string = Pendu.write_word_string(game_word_string, found_letters_list) 
+  attempts = 0
+
+  user_game_kl = [word: game_word_string, user_word: word_research_string, found_letters: found_letters_list, count: attempts]
+
+  Pendu.loop_game(user_game_kl)
+
+  def loop_game([word: game_word_string, user_word: _, found_letters: _, count: count]) do
+    IO.puts("! GAME OVER ! «« Le mot à trouver était #{game_word_string} !")
   end
 
-  def found_letters(found_letters_list, game_word_string) do
-    String.codepoints game_word_string
-    |> Enum.map(fn n -> check_char(found_letters_list, n) end)
+  def loop_game([word: game_word_string, user_word: word_research_string, found_letters: _, count: _])
+    when game_word_string == word_research_string do
+       IO.puts("! Vous avez gagner avec le mot #{game_word_string}")
+  end
+
+  def loop_game(user_game_kl) do
+    # write the game code here
+  end
+  
+  def check_char_on_word(game_word_string, char, [found_letters: found_letters_list, count: attempts]) do
+    cond do
+      (String.contains?(game_word_string, char)) and not (char in found_letters_list)
+        -> [found_letters: [char | found_letters_list], count: attempts]
+      true
+        -> [found_letters: found_letters_list, count: (attempts + 1)]
+    end
+  end
+
+  def write_word_string(game_word_string, found_letters_list) do
+    String.codepoints(game_word_string)
+    |> Enum.map(fn n_char -> check_char(found_letters_list, n_char) end)
     |> to_string
   end
 
-  def check_char(found_letters_list, nchar) do
+  def check_char([], _), do: "*"
+  def check_char(found_letters_list, n_char) do
     found_letters_list
     |> Enum.map(&(check_one_char(&1, nchar)))
   end
 
   def check_one_char(n, nchar) when n == nchar, do: nchar
-  def check_one_char(n, nchar), do: "*"
+  def check_one_char(n, _), do: "*"
 
   def get_char do
     user_char = IO.gets("Veuillez entrer un caractère et un seul : ")
@@ -62,15 +89,8 @@ defmodule Pendu do
     
     cond do
       Regex.match?(~r{^[a-zA-Z]$}, user_char) -> user_char
-      true                               -> get_char()
+      true                                    -> get_char()
     end
-  end
-
-  def check_char(searched_word_list, word_to_find_list, user_char) do
-    word_to_find_list
-    |> Enum.map(fn nchar -> check_one_char(nchar, user_char) end)
-    |> Enum.map(fn nchar ->)
-
   end
 
 end
