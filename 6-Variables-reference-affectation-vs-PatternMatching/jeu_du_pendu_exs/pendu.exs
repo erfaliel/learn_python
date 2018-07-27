@@ -57,7 +57,15 @@ defmodule Pendu do
   def loop_game(user_game_kl) do
     # write the game code here
   end
-  
+  """
+    for the docString:
+    iex(81)> [found_letters: found_letters_list, count: attempts] = Pendu.check_char_on_word(game_word_string, "e", [found_letters: found_letters_list, count: attempts])
+    [found_letters: ["e", "l"], count: 6]
+    iex(82)> [found_letters: found_letters_list, count: attempts] = Pendu.check_char_on_word(game_word_string, "e", [found_letters: found_letters_list, count: attempts])
+    [found_letters: ["e", "l"], count: 7]
+    iex(83)> [found_letters: found_letters_list, count: attempts] = Pendu.check_char_on_word(game_word_string, "a", [found_letters: found_letters_list, count: attempts])
+    [found_letters: ["a", "e", "l"], count: 7]
+  """
   def check_char_on_word(game_word_string, char, [found_letters: found_letters_list, count: attempts]) do
     cond do
       (String.contains?(game_word_string, char)) and not (char in found_letters_list)
