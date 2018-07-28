@@ -1,5 +1,6 @@
 
-"""Experiment in progress…
+"""
+  Experiment in progress…
 """
 # Paramètre du nombre de coup avant que je joeur ne perde
 count = 12
@@ -31,20 +32,9 @@ game_words_list = [
   "vitre",
   "abusif",
   ]
-IO.inspect game_list
 
-IO.inspect count
 defmodule Pendu do
   
-  game_word_string = Enum.random(game_words_list)
-  found_letters_list = []
-  word_research_string = Pendu.write_word_string(game_word_string, found_letters_list) 
-  attempts = 0
-
-  user_game_kl = [word: game_word_string, user_word: word_research_string, found_letters: found_letters_list, count: attempts]
-
-  Pendu.loop_game(user_game_kl)
-
   def loop_game([word: game_word_string, user_word: _, found_letters: _, count: count]) do
     IO.puts("! GAME OVER ! «« Le mot à trouver était #{game_word_string} !")
   end
@@ -56,6 +46,10 @@ defmodule Pendu do
 
   def loop_game(user_game_kl) do
     # write the game code here
+    get_char()
+    |> check_char_on_word([word: game_word_string, found_letters: found_letters_list, count: attempts])
+    |> loop_game()
+
   end
   """
     for the docString:
@@ -66,12 +60,12 @@ defmodule Pendu do
     iex(83)> [found_letters: found_letters_list, count: attempts] = Pendu.check_char_on_word(game_word_string, "a", [found_letters: found_letters_list, count: attempts])
     [found_letters: ["a", "e", "l"], count: 7]
   """
-  def check_char_on_word(game_word_string, char, [found_letters: found_letters_list, count: attempts]) do
+  def check_char_on_word( char, [word: game_word_string, found_letters: found_letters_list, count: attempts]) do
     cond do
       (String.contains?(game_word_string, char)) and not (char in found_letters_list)
-        -> [found_letters: [char | found_letters_list], count: attempts]
+        -> [word: game_word_string, found_letters: [char | found_letters_list], count: attempts]
       true
-        -> [found_letters: found_letters_list, count: (attempts + 1)]
+        -> [word: game_word_string, found_letters: found_letters_list, count: (attempts + 1)]
     end
   end
 
@@ -100,5 +94,12 @@ defmodule Pendu do
       true                                    -> get_char()
     end
   end
-
 end
+game_word_string = Enum.random(game_words_list)
+found_letters_list = []
+word_research_string = "" 
+attempts = 0
+
+user_game_kl = [word: game_word_string, user_word: word_research_string, found_letters: found_letters_list, count: attempts]
+
+Pendu.loop_game(user_game_kl)
