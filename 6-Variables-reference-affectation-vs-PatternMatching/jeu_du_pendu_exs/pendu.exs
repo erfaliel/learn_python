@@ -81,14 +81,12 @@ defmodule Pendu do
     |> to_string
   end
 
-  def check_char([], _), do: "*"
   def check_char(found_letters_list, n_char) do
-    found_letters_list
-    |> Enum.map(&(check_one_char(&1, nchar)))
+    cond do
+      n_char in found_letters_list -> n_char
+      true                         -> "*"
+    end
   end
-
-  def check_one_char(n, nchar) when n == nchar, do: nchar
-  def check_one_char(n, _), do: "*"
 
   def get_char do
     user_char = IO.gets("Veuillez entrer un caractère et un seul : ")
