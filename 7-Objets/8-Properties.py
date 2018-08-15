@@ -27,6 +27,9 @@ class Person: # Def of our class Person
 
   # We have to declare to Python that _location attribut is a property
   location = property(_get_location, _set_location)
+
+  # Sum up 
+  # nom_propriete = property(methode_accesseur, methode_mutateur, methode_suppression, methode_aide)
   
 bernard = Person("Dupont", "Bernard") # Create a new Person type var (always execute __init__ constructor methode)
 print("Create instance of object: bernard = Person() -> {} ".format(bernard))
