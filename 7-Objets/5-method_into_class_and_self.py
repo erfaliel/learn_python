@@ -37,3 +37,4 @@ print("We can consult the help of the method help(DashBoard.write): {}. ".format
 print("If we streadfully call the method of the class, it  works, DashBoard.write(dash, 'check')") # self is the object dash here
 DashBoard.write(dash, "check")
 print(dash.surface)
+# To sum up, when you need working into object method on object itself, you have to use self. 
