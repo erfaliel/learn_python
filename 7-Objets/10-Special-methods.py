@@ -186,6 +186,14 @@ class Duration2:
       self.min += self.sec // 60
       self.sec = self.sec % 60
     return self
+  def __eq__(self, object_to_compare):
+    """ Test if attributes of self and object_to_compare are equal """
+    return self.min == object_to_compare.min and self.sec == object_to_compare.sec
+  def __gt__(self, object_to_compare):
+    """ Test if attributes of self is greater than attributes of object_to_compare """
+    number_of_sec_object1 = self.sec + (self.min * 60)
+    number_of_sec_object2 = object_to_compare.sec + (object_to_compare.min * 60)
+    return number_of_sec_object1 > number_of_sec_object2
 
 d1 = Duration2(12, 8)
 print(d1)
@@ -204,5 +212,53 @@ __mod__: surcharge de l'opérateur%(modulo) ;
 __pow__: surcharge de l'opérateur**(puissance) ;
 …
 """
+# Compare methods:
+# Allow to compare two objects with each other
+"""
+== def __eq__(self, objet_a_comparer):Opérateur d'égalité (equal). RenvoieTruesiselfetobjet_a_comparersont égaux,False sinon.
+!= def __ne__(self, objet_a_comparer):Différent de (non equal). RenvoieTruesiselfetobjet_a_comparersont différents,False sinon.
+>  def __gt__(self, objet_a_comparer):Teste siselfest strictement supérieur (greater than) àobjet_a_comparer.
+>= def __ge__(self, objet_a_comparer):Teste siselfest supérieur ou égal (greater or equal) àobjet_a_comparer.
+<  def __lt__(self, objet_a_comparer):Teste siselfest strictement inférieur (lower than) àobjet_a_comparer.
+<= def __le__(self, objet_a_comparer):Teste siselfest inférieur ou égal (lower or equal) àobjet_a_comparer.
+"""
+d1 = Duration2(12, 8)
+d2 = Duration2(5, 3)
+print(d1 == d2) # False
+print(d1 > d2)  # True
 
+# Special methods for Pickler (record object in file).
+import pickle
+class Temp:
+  """ Class with 3 attributes including 1 temporary """
+  def __init__(self):
+    """Constructor """
+    self.attribut_1 = "A value"
+    self.attribut_2 = "Another value"
+    self.temp_attribut = 5
+  def __getstate__(self):
+    """Return attributs dictionnary to serialize """
+    dict_attr = dict(self.__dict__) # affectation by reference in this case
+    dict_attr["temp_attribut"] = 0  # then temp_attribut changed only in dict_attr object
+    return dict_attr
 
+print(Temp().attribut_2) # Another value
+MyTempObject = Temp()
+print("Attributs are attribut_1 : {}, attribut_2 : {}, temp_attribut : {}".format(
+  MyTempObject.attribut_1,
+  MyTempObject.attribut_2,
+  MyTempObject.temp_attribut)) # Attributs are attribut_1 : A value, attribut_2 : Another value, temp_attribut : 5
+
+with open('object_file', 'wb') as object:
+  my_pickler = pickle.Pickler(object)
+  my_pickler.dump(MyTempObject)
+
+with open('object_file', 'rb') as file:
+  my_depickler = pickle.Unpickler(file)
+  MyTempObjectRecorded = my_depickler.load()
+
+print("My recorded object is : {}".format(MyTempObjectRecorded)) # My recorded object is : <__main__.Temp object at 0x…
+print("Attributs are attribut_1 : {}, attribut_2 : {}, temp_attribut : {}".format(
+  MyTempObjectRecorded.attribut_1,
+  MyTempObjectRecorded.attribut_2,
+  MyTempObjectRecorded.temp_attribut)) # Attributs are attribut_1 : A value, attribut_2 : Another value, temp_attribut : 0
