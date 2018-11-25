@@ -236,11 +236,17 @@ class Temp:
     self.attribut_1 = "A value"
     self.attribut_2 = "Another value"
     self.temp_attribut = 5
-  def __getstate__(self):
+  def __getstate__(self):           # Called just before you are serializing object in order to record it
     """Return attributs dictionnary to serialize """
     dict_attr = dict(self.__dict__) # affectation by reference in this case
     dict_attr["temp_attribut"] = 0  # then temp_attribut changed only in dict_attr object
     return dict_attr
+
+  # Here another method to achieve the same goal in a different way (but __setstate__ and __getstate__ could exist both togather) 
+  # def __setstate__(self, dict_attr):           # Called just after deserialized your object to load it.
+  #  """ Method called during object deserialization """
+  #  dict_attr["temp_attribut"] = 0
+  #  return dict_attr
 
 print(Temp().attribut_2) # Another value
 MyTempObject = Temp()
