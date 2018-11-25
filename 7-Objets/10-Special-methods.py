@@ -262,3 +262,12 @@ print("Attributs are attribut_1 : {}, attribut_2 : {}, temp_attribut : {}".forma
   MyTempObjectRecorded.attribut_1,
   MyTempObjectRecorded.attribut_2,
   MyTempObjectRecorded.temp_attribut)) # Attributs are attribut_1 : A value, attribut_2 : Another value, temp_attribut : 0
+"""
+  on the other hands we would be able to backup whitout modifications the initial Dict, and would made reset when object de-serialized :
+  ...
+    def __setstate__(self, dict_attr):
+        #Méthode appelée lors de la désérialisation de l'objet
+        dict_attr["attribut_temporaire"] = 0
+        self.__dict__ = dict_attr
+"""
+
