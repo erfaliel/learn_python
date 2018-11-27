@@ -133,3 +133,5 @@ class FileAnalysisError(Exception):
 #decomment to raise the error check
 raise FileAnalysisError("plop.conf", 34, "bracket missing")
 
+# En Python, plutôt que de créer des fonctions qui transforme un objet, on peut modifier/surcharger le méthodes d'un objet (string, list, dict etc.) 
+# en utilisant l'héritage et en ne surchargeant que ce qui est nécessaire. (…mouai avis de moi)
