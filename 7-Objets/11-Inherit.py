@@ -44,7 +44,7 @@ class SpecialAgentα(Person):
   It inherits from Person class."""
   def __init__(self, name, serial_number):
     """ An agent is defined by his name and matricul"""
-    Person.__init__(self, name) # overide mother constructor with same values
+    Person.__init__(self, name) # overide mother constructor with same values # !!! Very important !!!
     self.serial_number = serial_number # and Add new value. 
   def __str__(self):
     """Method called when object ist converted in string"""
