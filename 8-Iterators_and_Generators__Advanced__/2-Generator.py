@@ -40,4 +40,12 @@ def my_range(a, b):
 for number in my_range(5, 10):
   print(number)
 
+# we can reuse iterators to reverse String
+def reverse(data):
+    for index in range(len(data)-1, -1, -1):
+        yield data[index]
+
+for char in reverse('golf'):
+  print(char)
+
 
