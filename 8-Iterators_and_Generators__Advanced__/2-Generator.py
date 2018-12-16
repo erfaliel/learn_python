@@ -32,8 +32,12 @@ for number in my_generator(): # it's necessary to execute the function()
 
 def my_range(a, b):
   """a and b define range to print"""
+  a += 1
   while a < b:
-    a += 1
     yield a
+    a += 1
   #raise StopIteration it's not necessary !
+for number in my_range(5, 10):
+  print(number)
+
 

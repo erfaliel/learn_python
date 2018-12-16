@@ -48,4 +48,6 @@ print(my_string)
 for element in my_string: # basic for loop
   print(element)
 #We should see how works the for loop on RevStr object.
+# Other solution with one methode
+# https://docs.python.org/3/tutorial/classes.html#iterators
 
