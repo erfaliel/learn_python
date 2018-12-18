@@ -40,12 +40,60 @@ def my_range(a, b):
 for number in my_range(5, 10):
   print(number)
 
-# we can reuse iterators to reverse String
+# we can reuse generators to reverse String
 def reverse(data):
     for index in range(len(data)-1, -1, -1):
         yield data[index]
 
 for char in reverse('golf'):
   print(char)
+
+# generator and coroutins
+# you can change behaviors during iteration
+# ... like break a loop
+My_new_generator = my_range(5, 20) # First we have to exec the generator and put it into a var  
+for number in My_new_generator: # we cannot do or number in my_range(5, 20) 
+  if number > 17:
+    My_new_generator.close() # Stop the loop
+  print(number)
+
+""" Result :
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18"""
+
+# We can send datas to generator during execution
+def my_range(a, b):
+  """Generatou that is crossing an int serie from a to b.
+  Our generator has to bypass a range of int according to a value.
+  this value become the new 'a' value.
+
+  a must be smaller than b. """
+
+  a += 1
+  while a < b:
+    received_value = (yield a)
+    if received_value is not None: # Our generatou has received something
+      a = received_value
+    a += 1
+
+# this is the code to intetact with the generator
+my_generator = my_range(10, 25)
+for number in my_generator:
+  if number == 15:
+    my_generator.send(20)
+  print(number, end=" ")
+
+
 
 
