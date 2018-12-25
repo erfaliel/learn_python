@@ -48,6 +48,18 @@ def reverse(data):
 for char in reverse('golf'):
   print(char)
 
+# enumerate built-in function is a generator
+"""def enumerate(sequence, start=0):
+    n = start
+    for elem in sequence:
+        yield n, elem
+        n += 1"""
+seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+list(enumerate(seasons, start=1))
+""" result:
+[(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]"""
+
+
 # generator and coroutins
 # you can change behaviors during iteration
 # ... like break a loop

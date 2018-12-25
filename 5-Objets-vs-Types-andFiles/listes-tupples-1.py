@@ -87,7 +87,7 @@ while i < len(ma_liste):
 for element in ma_liste:
   print(element)
 
-# parcourir avec enumerate
+# parcourir avec enumerate (rq: enumerate est un générateur cf § 8.2 Generator)
 for i, element in enumerate(ma_liste):
   print("À l'indice {} set trouve {}.".format(i, element))
 # pour visualiser
