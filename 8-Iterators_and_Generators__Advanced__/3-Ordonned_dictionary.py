@@ -40,7 +40,7 @@ class DictionnaireOrdonne:
 
     chaine = "{"
     premiere_boucle = True
-    for cle, valeur in self.items(): # implique de definir self.items()
+    for cle, valeur in self.items(): # implique de definir le générateur self.items()
       if not premiere_boucle:
         chaine += ", "
       else:
@@ -55,7 +55,47 @@ class DictionnaireOrdonne:
     for i, cle in enumerate(self._cles):
       valeur = self._valeurs[i]
       yield (cle, valeur)
-  
+
+  def __delitem__(self, cle):
+    """Supprime la clé et la valeur associée dans l'objet"""
+
+    if cle not in self._cles:
+      raise KeyError("La cle {0} n'est pas présente dans l'objet".format(cle))
+    else:
+      curseur = self._cles.index(cle)
+      del(self._cles[curseur])
+      del(self._valeurs[curseur])
+
+  def len(self):
+    """Renvoie le nombre d'items contenu dans l'objet"""
+    return len(self._cles)
+
+  def __iter__(self):
+    """ Retourne l'itérateur pour parcourir: ici on utilise l'itéteur de liste di self._cles"""
+    return iter(self._valeurs)
+
+  def keys(self):
+    """ Retourne la liste des clé """
+    return list(self._cles)
+
+  def values(self):
+    """Retourne la liste des valeurs """
+    return list(self._valeurs)
+
+  def sort(self):
+    """Reclasse les items de la liste dans l'ordre des valeurs """
+    # On définit deux liste temporaires pour travailler sur les items
+    # On commence par trier les clés
+    cles_triees = sorted(self._cles)
+    # On génère la nouvelle liste des valeurs dans l'ordre de la liste cles
+    valeurs = []
+    for cle in cles_triees:
+      valeur = self[cle]   # nécessite __getitem__ sinon "TypeError: 'DictionnaireOrdonne' object is not subscriptable"
+      valeurs.append(valeur)
+    
+    # On mets à jour les éléments de l'objets
+    self._cles = cles_triees
+    self._valeurs = valeurs
 
 
 
@@ -76,5 +116,12 @@ print(vegetables)
 vegetables["fraise"] = 18
 print(vegetables)
 vegetables["poire"] = 27
-print(vegetables)
-
+print(vegetables) 
+print("nombre d'éléments dans vegetables: {}".format(vegetables.len()))
+del(vegetables["carotte"])
+print("nombre d'éléments dans vegetables: {}".format(vegetables.len()))
+# del(vegetables["carotte"])
+print(vegetables["poire"])
+print("liste des clés de vegetables: {}".format(vegetables.keys()))
+print("liste des valeurs de 'vegetables': {}".format(vegetables.values()))
+print("sorted 'vegetables': {}".format(vegetables.sort()))

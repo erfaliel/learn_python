@@ -11,3 +11,5 @@ except ValueError:
 # assert «test» se distingure de if «test» raise que dans le premier
 # cas on obtient une AssertionErron et dans le second on indique le
 # type de l'exception.S
+# Ci dessous les built-in exceptions:
+# https://docs.python.org/fr/3/library/exceptions.html
