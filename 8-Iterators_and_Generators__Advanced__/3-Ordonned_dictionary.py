@@ -82,20 +82,32 @@ class DictionnaireOrdonne:
     """Retourne la liste des valeurs """
     return list(self._valeurs)
 
-  def sort(self):
+  def sort(self, reverse = False):
     """Reclasse les items de la liste dans l'ordre des valeurs """
     # On définit deux liste temporaires pour travailler sur les items
     # On commence par trier les clés
-    cles_triees = sorted(self._cles)
+    if not reverse:
+      cles_triees = sorted(self._cles, reverse = False)
+    else:
+      cles_triees = sorted(self._cles, reverse = True)
     # On génère la nouvelle liste des valeurs dans l'ordre de la liste cles
     valeurs = []
     for cle in cles_triees:
       valeur = self[cle]   # nécessite __getitem__ sinon "TypeError: 'DictionnaireOrdonne' object is not subscriptable"
       valeurs.append(valeur)
-    
+   
     # On mets à jour les éléments de l'objets
     self._cles = cles_triees
     self._valeurs = valeurs
+  
+  def __getitem__(self, cle):
+    """ Retourne la valeur associée à la clé quand on appelle self[cle] """
+    indice = self._cles.index(cle)
+    return self._valeurs[indice]
+
+  def reverse(self):
+    """ Rééctits les items de l'objet dans l'ordre inverse des valeurs """
+    return self.sort(True)
 
 
 
@@ -114,6 +126,7 @@ print(fruits)
 vegetables = DictionnaireOrdonne(carotte = 26, haricot = 48, poire = 270)
 print(vegetables)
 vegetables["fraise"] = 18
+vegetables["artichaut"] = 108
 print(vegetables)
 vegetables["poire"] = 27
 print(vegetables) 
@@ -124,4 +137,7 @@ print("nombre d'éléments dans vegetables: {}".format(vegetables.len()))
 print(vegetables["poire"])
 print("liste des clés de vegetables: {}".format(vegetables.keys()))
 print("liste des valeurs de 'vegetables': {}".format(vegetables.values()))
-print("sorted 'vegetables': {}".format(vegetables.sort()))
+vegetables.sort()
+print("sorted 'vegetables': {}".format(vegetables))
+vegetables.reverse()
+print("sorted 'vegetables': {}".format(vegetables))
