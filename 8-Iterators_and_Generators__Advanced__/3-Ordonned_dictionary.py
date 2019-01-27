@@ -82,6 +82,10 @@ class DictionnaireOrdonne:
     """Retourne la liste des valeurs """
     return list(self._valeurs)
 
+  def __contains__(self, cle):
+    """ Retourne True si la clé est présente dans l'objet, False sinon """
+    return cle in self._cles
+
   def sort(self, reverse = False):
     """Reclasse les items de la liste dans l'ordre des valeurs """
     # On définit deux liste temporaires pour travailler sur les items
@@ -108,6 +112,36 @@ class DictionnaireOrdonne:
   def reverse(self):
     """ Rééctits les items de l'objet dans l'ordre inverse des valeurs """
     return self.sort(True)
+
+  def __delitem__(self, cle):
+    """ On supprime l'item de l'objet où la clé est indiquée. """
+    # On vérifie que la clé existe dans l'objet
+    if cle not in self._cles:
+      raise KeyError("La clé {} n'existe pas".format(cle))
+    else:
+      # On récupère la position de la clé
+      curseur = self._cles.index(cle)
+      # On supprime les éléments clé et valeurs assorciés à cette position
+      del self._cles[curseur]
+      del self._valeurs[curseur]
+      
+  def __add__(self, autre_objet):
+    """ On retourne un nouvel objet concaténent le premier objet avec le second """
+    # on vérifie que le second objet est du compatible
+    if type(autre_objet) is not type(self):
+      raise TypeError("Impossible de concaténer {0} et {1}".format(type(self), type(autre_objet)))
+    else:
+      nouvel_objet = DictionnaireOrdonne()
+
+      # on récupère les valeurs du premier objet
+      for cle, valeur in self.items():
+        nouvel_objet[cle] = valeur
+      # On ajoute les valeurs du deuxième objet
+      for cle, valeur in autre_objet.items():
+        nouvel_objet[cle] = valeur
+
+      # On retourne le nouvel objet
+      return nouvel_objet
 
 
 
@@ -141,3 +175,16 @@ vegetables.sort()
 print("sorted 'vegetables': {}".format(vegetables))
 vegetables.reverse()
 print("sorted 'vegetables': {}".format(vegetables))
+
+print("concaténation des fruits et des légumes : ")
+nouriture = fruits + vegetables
+print(nouriture)
+print(vegetables)
+
+print("On supprime l'élément 'fraise' de l'objet nourituer:")
+del nouriture["fraise"]
+print(nouriture)
+print("fraise" in nouriture)
+print(fruits)
+print("fraise" in fruits)
+print("pomme" in fruits)
