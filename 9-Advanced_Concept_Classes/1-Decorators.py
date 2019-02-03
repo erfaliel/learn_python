@@ -152,8 +152,102 @@ Tout le monde
 The execution time of function <function wait2 at 0x7feaab5c6268> was 7.083711624145508 secs
 """
 
+# We can use decotator for class in the same way than function.
+def class_decotator(my_class):
+  print("the class definition is {0}".format(my_class))
+  return my_class
 
+@class_decotator
+class Test:
+  pass
 
+# Also we can chain decorator for functions or classes
+# @decorator1
+# @decorator2
+# def my_function():
 
-  
+# Examples
+# Example 1 singleton class
+# A singleton class is a class where we can get one object only, if we try to get
+# a second object we will get the first.
+def singleton(defined_class):
+  instances = {} # Dictionnary for our singleton's class
+  def get_instance():
+    if defined_class not in instances:
+      # We build our first object
+      instances[defined_class] = defined_class() # constructor is called ans its reference is put in the dictionnary
+    return instances[defined_class]
+  return get_instance
 
+@singleton
+class Test:
+  pass
+
+a = Test()
+b = Test()
+print("Singleton instances ? ", a is b)
+
+# With decorator, when the class constructor is called, in place of contructor  get_instance funcion is got.
+
+""" Result :
+Singleton instances ?  True
+"""
+
+#Types ckecking: We can use decorator to unforce a check of type into the function.
+def type_controller(*type_args, **type_kwargs):
+  """ we are waiting for types in parameters of the decorator.
+  number of the parameters are uknown, so the number of type is uknown to.
+  each paramters has to be checked.
+  it returns the decorator"""
+
+  def decorator(function_to_exec):
+    """ Our decorator, it has to return a controled_function"""
+    def controled_function(*args, **kwargs):
+      """ This function deals with parameters to control the types validity"""
+
+      # The parameters number must be equal to the types number to check.
+      if len(type_args) != len(args) :
+        raise TypeError("The argument number is not equal to the number of types to controlled")
+      
+      # on parcourt la liste des arguments non nommés
+      for i, arg in enumerate(args):
+        if type_args[i] is not type(args[i]):
+          raise TypeError("Argument {0} is not a type : {1}".format(i, type_args[i]))
+
+      # On parcourt la liste des arguments non nommés
+      for key in kwargs:
+        if key not in type_kwargs:
+          raise TypeError("argument {0} has no identified \
+                  type".format(repr(key)))
+        if type_kwargs is not type(kwargs[key]):
+          raise TypeError("The argument {0} is not a \
+                  type : {1}".format(repr(key), type_kwargs[key]))
+      # return function to execute
+      return function_to_exec(*args, **kwargs)
+    return controled_function
+  return decorator
+
+@type_controller(int, int)
+def range(start, end):
+  print("The range start from {0} to {1}".format(start, end))
+
+range(1, 10)
+range(1, "100")
+
+""" Result :
+The range start from 1 to 10
+Traceback (most recent call last):
+  File "1-Decorators.py", line 235, in <module>
+    range(1, "100")
+  File "1-Decorators.py", line 215, in controled_function
+    raise TypeError("Argument {0} is not a type : {1}".format(i, type_args[i]))
+TypeError: Argument 1 is not a type : <class 'int'>"""
+
+"""Since version 3.5 python can support for type hints
+import typing
+def T_range(start: int, end: int) -> str:
+  return "The range start from {0} to {1}".format(start, end)
+
+print(T_range(1, 100))
+print(T_range(1, "cent"))
+"""
