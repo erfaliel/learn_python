@@ -244,6 +244,7 @@ Traceback (most recent call last):
 TypeError: Argument 1 is not a type : <class 'int'>"""
 
 """Since version 3.5 python can support for type hints
+https://docs.python.org/3/library/typing.html
 import typing
 def T_range(start: int, end: int) -> str:
   return "The range start from {0} to {1}".format(start, end)
