@@ -96,4 +96,70 @@ John
 
 John Doe
 """
+# Metaclass definition
+# type is the default metaclass, but a class can get a metaclass other than type
+# __new__ methods --> create class
+# __init__ method --> buile class
+class MyMetaClass(type):
+  """Example for metaclass."""
 
+  def __new__(metacls, name, bases, dict):
+    """Metaclass creation."""
+    print("We are creating our class: {}".format(name))
+    return type.__new__(metacls, name, bases, dict)
+
+
+class MyClass(metaclass=MyMetaClass):
+  pass
+### __init__ method uses same arguments than __new__ without the first (cls), name, mothers's classes tuple and
+# dictionnary for attributs and methods of the class.
+
+## Small example
+# {
+#   "Widget": Widget,
+#   "Button": Button,
+#   "RadioButton" : RadioButton,
+#   "Menu": Menu,
+#   "frame": Frame,
+# }
+track_classes = {} # Our empty dictionnary for now.
+class MetaWidget(type):
+  """Our metaclass for ours widgets.
+
+  It inheritates from type, because it's first level metaclass.
+  It will write into the track_classes dictionnary everytime a new class will be build with
+  this metaclass."""
+
+  def __init__(cls, name, bases, dict):
+    """Metaclass constructor, called when a new class is created."""
+    print("#ECHO: build a new class from MetaWidget: {}#".format(name))
+    type.__init__(cls, name, bases, dict)
+    track_classes[name] = cls
+
+class Widget(metaclass=MetaWidget):
+
+  """Mother class for our entire widgets."""
+  pass
+
+class Button(Widget):
+  """A class for the button widget."""
+  pass
+
+class Menu(Widget):
+  """A class for the menu widget."""
+  pass
+
+class RadioButton(Menu):
+  """A subclass radiobutton."""
+  pass
+
+
+print("Track dictionnary : ", track_classes)
+
+"""Result :
+#ECHO: build a new class from MetaWidget: Widget#
+#ECHO: build a new class from MetaWidget: Button#
+#ECHO: build a new class from MetaWidget: Menu#
+#ECHO: build a new class from MetaWidget: RadioButton#
+Track dictionnary :  {'Button': <class '__main__.Button'>, 'Widget': <class '__main__.Widget'>, 'Menu': <class '__main__.Menu'>, 'RadioButton': <class '__main__.RadioButton'>}
+"""
