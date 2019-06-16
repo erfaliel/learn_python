@@ -93,9 +93,10 @@ erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ pyt
 ['consol_test.py', 'argument1', 'argument2', 'argument3']
 
 So first agrument of sysargv is the program name and if they exits you can have the rest of the list
-
+"""
 ### How to interpret those arguments ?
 ### Simple action exemple
+"""
 erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ python3 simple_argv_exemple.py stop
 Shuting down
 erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ python3 simple_argv_exemple.py start
@@ -106,9 +107,10 @@ erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ pyt
 the status is : XXX
 erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ python3 simple_argv_exemple.py check
 command check is uknown !
-
+"""
 
 #### More complex
+"""
 by default the -h --help options are known by default in linux:
 erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ python3 argparse_example.py -h
 usage: argparse_example.py [-h]
@@ -153,3 +155,28 @@ Result:
 ----------
 erfaliel@SurfaceVincent:~/dev/comparaison_de_codes/10-Specific_Dev/3-os_sys$ python3 argparse_example.py 5
 square = 25
+
+python3 argparse_example.py test
+usage: argparse_example.py [-h] x
+argparse_example.py: error: argument x: invalid int value: 'test'
+"""
+#### All tuto in https://docs.python.org/3/howto/argparse.html
+""" Exemple : argparse_verbosity.py to look for about count option
+_Dev/3-os_sys# python3 argparse_verbosity.py -h
+usage: argparse_verbosity.py [-h] [-v] square
+
+positional arguments:
+  square         display the square of e given number
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --verbose  increase input versbosity
+
+#argparse_verbosity.py 5
+25
+# python3 argparse_verbosity.py -v 5
+5^2 == 25
+# python3 argparse_verbosity.py -vv 5
+The square of 5 equals 25
+#
+
