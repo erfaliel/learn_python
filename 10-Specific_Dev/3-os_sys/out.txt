@@ -1,0 +1,11 @@
+total 13K
+drwxrwxrwx 1 erfaliel erfaliel  512 Jul 16 17:56 .
+drwxrwxrwx 1 erfaliel erfaliel  512 Jun  8 12:13 ..
+-rwxrwxrwx 1 erfaliel erfaliel 9.9K Jul 16 17:54 3-os_sys.py
+-rwxrwxrwx 1 erfaliel erfaliel  306 Jun  8 14:04 argparse_example.py
+-rwxrwxrwx 1 erfaliel erfaliel  521 Jun 16 18:38 argparse_verbosity.py
+-rwxrwxrwx 1 erfaliel erfaliel   27 Jun  8 11:47 consol_test.py
+-rwxrwxrwx 1 erfaliel erfaliel    0 Jul 16 17:57 err.txt
+-rwxrwxrwx 1 erfaliel erfaliel    0 Jul 16 17:57 out.txt
+-rwxrwxrwx 1 erfaliel erfaliel  491 Jul 16 17:56 output_in_files.py
+-rwxrwxrwx 1 erfaliel erfaliel  389 Jun  8 12:02 simple_argv_exemple.py

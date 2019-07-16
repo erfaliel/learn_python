@@ -179,4 +179,102 @@ optional arguments:
 # python3 argparse_verbosity.py -vv 5
 The square of 5 equals 25
 #
+"""
+##### System ########################################################
+""" os.system prints the result of a command and return the status code.
+you can capture the status code, not the result. Python makes return even if
+the command is still in progress. (sleep 5 don't stop python for 5 seconds).
+
+import os
+os.system("ls")
+
+"""
+#os.popen
+"""
+command in parameter, but it returns au object with "pipe" we allowe you to read the command return.
+
+import os
+>>> os.system("sleep 5")
+0
+>>> cmd = os.popen("ls")
+>>> cmd
+<os._wrap_close object at 0x7fa40631f908>
+>>> cmd.read()
+'10-Specific_Dev\n1-conditions\n2-Iterations_et_Comprehensions__Basic__\n3-fonctions\n4-exceptions\n5-Objets-vs-Types-andFiles\n6-Variables-reference-affectation-vs-PatternMatching\n7-Objets\n8-Iterators_and_Generators__Advanced__\n9-Advanced_Concept_Classes\ngeometry.py\nobject_file\nREADME.md\n'
+
+But pipe is blocked the program untill the command is ending.
+"""
+#subprocess module (from http://queirozf.com/entries/python-3-subprocess-examples)
+"""
+the simplest way when you don't need parameters:
+>>> import subprocess
+>>> subprocess.call("ls")
+dev  output.txt
+0
+
+#parameters needs to be passed with a list:
+>>> from subprocess import run, Popen
+>>> run(["ls", "-rtl", "."])
+total 0
+lrwxrwxrwx 1 erfaliel erfaliel 34 Jul  7  2018 dev -> /mnt/c/Users/Vincent/Documents/dev
+-rw-rw-rw- 1 erfaliel erfaliel 86 May 27 17:05 output.txt
+CompletedProcess(args=['ls', '-rtl', '.'], returncode=0) # we get a returncode !
+
+# Raise an exception if the underlaying process errors.
+>>> run("./MyScriptDoesNotExist")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.6/subprocess.py", line 403, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/usr/lib/python3.6/subprocess.py", line 709, in __init__
+    restore_signals, start_new_session)
+  File "/usr/lib/python3.6/subprocess.py", line 1344, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: './MyScriptDoesNotExist': './MyScriptDoesNotExist'
+
+# The same with shell=True option
+>>> run("./MyScriptDoesNotExist", shell=True)
+/bin/sh: 1: ./MyScriptDoesNotExist: not found
+CompletedProcess(args='./MyScriptDoesNotExist', returncode=127)
+
+# The Same with shell=True and check=True (enforce exception)
+>>> run("./MyScriptDoesNotExist", shell=True)
+/bin/sh: 1: ./MyScriptDoesNotExist: not found
+CompletedProcess(args='./MyScriptDoesNotExist', returncode=127)
+>>> run("./MyScriptDoesNotExist", shell=True, check=True)
+/bin/sh: 1: ./MyScriptDoesNotExist: not found
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.6/subprocess.py", line 418, in run
+    output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command './MyScriptDoesNotExist' returned non-zero exit status 127.
+
+
+# How to capture stdout and stderr in a file (log file):
+python3 output_in_files.py
+see out.txt
+see err.txt
+
+Here the code and explanation.
+
+
+
+follow http://queirozf.com/entries/python-3-subprocess-examples
+
+
+#how to capture the return: the subrocess.popen combo.
+>>> my_out = subprocess.Popen(["ls", "-rtl", "."], \
+...             stdout=subprocess.PIPE, \
+...             stderr=subprocess.STDOUT)
+>>> (stdout, stderr) = my_out.communicate()
+>>> print(stderr)
+None
+>>> print(stdout)
+b'total 0\nlrwxrwxrwx 1 erfaliel erfaliel 34 Jul  7  2018 dev -> /mnt/c/Users/Vincent/Documents/dev\n-rw-rw-rw- 1 erfaliel erfaliel 86 May 27 17:05 output.txt\n'
+
+
+
+
+
+
 
