@@ -1,0 +1,90 @@
+Gestion des mots de passe (hash) / Handle password
+--------------------------------------------------
+
+samedi 13 mars 2021
+17:47
+
+❯ python3
+Python 3.8.5 (default, Jul 21 2020, 10:48:26)
+[Clang 11.0.3 (clang-1103.0.32.62)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+------------------------------------------------------------------------------------------------
+Module permettant de renseigner un mot de passe (interdit l'affichage à la saisie) : getpass()
+-----------------------------------------------------------------------------------------------
+>>> from getpass import getpass
+>>> mot_de_passe = getpass()
+Password:
+>>> mot_de_passe
+'azerty'
+
+getpass() allow us to add you own prompt message
+
+>>> mot_de_passe = getpass("Saisissez votre mot de passe: ")
+Saisissez votre mot de passe:
+>>> mot_de_passe
+'azerty'
+-------------------------------------------
+Le module hashlib permet le hash (cryptage)
+-------------------------------------------
+>>> import hashlib
+>>> hashlib.
+hashlib.algorithms_available   hashlib.md5(                   hashlib.sha1(                  hashlib.sha3_224(              hashlib.sha512(
+hashlib.algorithms_guaranteed  hashlib.new(                   hashlib.sha224(                hashlib.sha3_256(              hashlib.shake_128(
+hashlib.blake2b(               hashlib.pbkdf2_hmac(           hashlib.sha256(                hashlib.sha3_384(              hashlib.shake_256(
+hashlib.blake2s(               hashlib.scrypt(                hashlib.sha384(                hashlib.sha3_512(
+
+Les différents type de hash portable (fonctionnant d'un système à l'autre)
+>>> hashlib.algorithms_guaranteed
+{'sha256', 'shake_128', 'sha512', 'blake2b', 'shake_256', 'sha3_224', 'sha384', 'sha224', 'sha3_512', 'blake2s', 'sha3_256', 'sha3_384', 'md5', 'sha1'}
+
+Tous les types de hash portables ou non.
+>>> hashlib.algorithms_available
+{'blake2b', 'sha3_224', 'sha384', 'blake2s', 'md5', 'sha512', 'sha1', 'sha256', 'ripemd160', 'sha3_256', 'sha3_384', 'shake_128', 'mdc2', 'shake_256', 'md4', 'sha512_256', 'sha224', 'sha512_224', 'md5-sha1', 'whirlpool', 'sha3_512', 'sm3'}
+
+RQ: Hashlib used to work with binary (and not str string).
+Convert str to binary: 
+----------------------
+>>> b'test'
+b'test'
+or you cans use .encode method from an str
+>>> a = "test"
+>>> a
+'test'
+>>> a.encode()
+b'test'
+
+Hash binary into sha256
+-------------------------
+
+>>> mot_de_passe = hashlib.sha256(b"mon mot de passe")
+>>> mot_de_passe
+<sha256 HASH object @ 0x10f9c6830>
+To use this hash, it efficient to digest it :
+
+Message digests are designed to protect the integrity of a piece of data or media to detect changes and alterations to any part of a message. 
+----------------------------------------
+>>> mot_de_passe.hexdigest()
+'3420b843f2ae7f47b7402f4fbe0e7698ca99797015ac27d00488a106f13e46db'
+
+TIPS : We don't want and we don't need to decrypt a password, we just need to compare encrypted hash from client with enrypted original password (You can see an example ).
+
+----------
+example :
+---------
+python3 getAndComparePassword.py
+Hash à reconstituer:  f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9
+taper le mot de passe : 
+DEBUG : valeur saisie: sfozf
+DEBUG : valeur saisie vers binary: b'sfozf'
+DEBUG : valeur saisie chiffrée : ae2ce1bf7f8d2c0f060c0c1fe65febfc1fdb78f24b07e94ff5e91d5770a20d1e
+Mot de passe incorrect
+taper le mot de passe : 
+DEBUG : valeur saisie: sfsfs
+DEBUG : valeur saisie vers binary: b'\x1b:sfsfs'
+DEBUG : valeur saisie chiffrée : 176dd066f66d7136be2f4555e0b09c2e2b76ec5cbad2787b253dd19e81faecbb
+Mot de passe incorrect
+taper le mot de passe : 
+DEBUG : valeur saisie: azerty
+DEBUG : valeur saisie vers binary: b'azerty'
+DEBUG : valeur saisie chiffrée : f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9
+Mot de passe accepté…
