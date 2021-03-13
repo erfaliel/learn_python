@@ -1,6 +1,8 @@
 Gestion des mots de passe (hash) / Handle password
 --------------------------------------------------
-
+ref:
+----
+https://docs.python.org/3/library/hashlib.html
 samedi 13 mars 2021
 17:47
 
