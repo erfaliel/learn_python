@@ -1,0 +1,7 @@
+Un truc à écrire…
+<Signals.SIGINT: 2>
+<Signals.SIGINT: 2>
+This program is a loop
+14
+'7 + 7'
+14.0
