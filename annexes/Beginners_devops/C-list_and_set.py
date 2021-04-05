@@ -27,6 +27,7 @@ user_input = input("Saisir la valeur à convertir: \n")
 num_of_days = user_input.split(", ")
 num_of_days = set(num_of_days) # set type conversion to supress doublon
 print(type(num_of_days))
+print(num_of_days)
 for num_of_days_element in num_of_days:
     (value, status) = checkInputUser(num_of_days_element)
     print(f"( {value}, status: {status} )")
