@@ -13,3 +13,6 @@ class User:
 
     def get_user_info(self):
         print(f"User {self.name} currently works as a {self.current_job_title}. You can contact them at {self.email}.")
+
+    def __repr__(self):         # One of special Python method, this in reaction to print command
+        return f"name: {self.name} \nemail: {self.email}\ncurrent job: {self.current_job_title}\nPassword: ****"
