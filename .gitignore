@@ -1,0 +1,14 @@
+# OS generated files #
+#####################
+.DS_Store
+.idea
+.idea/*
+
+# Editor #
+#########
+.vscode
+.vscode/*
+
+# test files #
+#############
+annexes/Beginners_devops/G-xls/inventory_with_total_value*.xlsx
